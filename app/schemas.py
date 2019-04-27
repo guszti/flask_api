@@ -1,0 +1,2 @@
+class DogSchema:
+    pass
