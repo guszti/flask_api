@@ -3,7 +3,7 @@ from marshmallow import fields
 
 class DogSchema(ma.Schema):
     class Meta:
-        fields =('name', 'species', 'age', 'created_at')
+        fields =('id', 'name', 'species', 'age', 'created_at')
 
 class SlaveSchema(ma.Schema):
     class Meta:
