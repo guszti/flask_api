@@ -1,8 +1,8 @@
-"""dogs and slaves
+"""empty message
 
-Revision ID: 3767218703b3
+Revision ID: 5c71f9d4cfb0
 Revises: 
-Create Date: 2019-04-24 17:04:52.238155
+Create Date: 2019-05-19 13:57:01.039927
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '3767218703b3'
+revision = '5c71f9d4cfb0'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,7 +22,8 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=80), nullable=False),
     sa.Column('species', sa.String(length=80), nullable=False),
-    sa.Column('age', sa.Integer(), nullable=True),
+    sa.Column('age', sa.Integer(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('slave',

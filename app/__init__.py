@@ -10,5 +10,5 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 ma = Marshmallow(app)
 
-from app.http import endpoints
+from app.http.api import endpoints
 from app.models import Dog
