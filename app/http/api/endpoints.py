@@ -1,6 +1,6 @@
 from app import app, db
 from flask import request, render_template, redirect, url_for, jsonify
-from app.schemas import DogSchema, SlaveSchema, OwnerSchema
+from app.schemas import DogSchema, SlaveSchema
 from app.models import Dog, Slave
 
 
