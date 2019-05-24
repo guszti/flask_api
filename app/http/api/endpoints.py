@@ -2,7 +2,7 @@ from app import app, db
 from flask import request, render_template, redirect, url_for, jsonify
 from app.schemas import DogSchema, SlaveSchema
 from app.models import Dog, Slave
-
+import json
 
 @app.route('/api/dogo', methods=['POST'])
 def create_dogo():
@@ -113,10 +113,3 @@ def delete_slave(id):
 		db.session.commit()
 
 		return  f'slave {id} deleted successfully'
-
-@app.route('/api/property/<dog_id>', methods=['POST'])
-def slaves_of_dog(dog_id):
-	result = Slave.query.filter(Slave.dog_id == dog_id).all()
-	sch = SlaveSchema(many=True)
-
-	return sch.jsonify(result)
