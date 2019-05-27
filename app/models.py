@@ -13,6 +13,8 @@ class Dog(db.Model):
     age = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
+    slaves = db.relationship('Slave')
+
 class Slave(db.Model):
     def __init__(self, sex, dog_id):
         self.sex = sex
