@@ -113,11 +113,3 @@ def delete_slave(id):
 		db.session.commit()
 
 		return  f'slave {id} deleted successfully'
-
-@app.route('/api/property/<id>', methods=['POST'])
-def read_property(id):
-	if request.method == 'POST':
-		dog_schema = DogSchema(strict=True)
-		result = Dog.query.get(id)
-
-		return dog_schema.jsonify(result)
