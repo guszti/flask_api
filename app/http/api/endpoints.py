@@ -1,7 +1,7 @@
 from app import app, db
 from flask import request, render_template, redirect, url_for, jsonify
-from app.schemas import DogSchema, SlaveSchema
-from app.models import Dog, Slave
+from app.schemas import DogSchema, SubordinateSchema
+from app.models import Dog, Subordinate
 import json
 
 @app.route('/api/dogo', methods=['POST'])
@@ -19,19 +19,19 @@ def create_dogo():
 
 		return dog_schema.jsonify(dogo)
 
-@app.route('/api/slave', methods=['POST'])
-def create_slave():
+@app.route('/api/subordinate', methods=['POST'])
+def create_subordinate():
 	if request.method == 'POST':
 		sex = request.json['sex']
 		dog_id = request.json['dog_id']
 
-		slv = Slave(sex, dog_id)
-		slave_schema = SlaveSchema(strict=True)
+		slv = Subordinate(sex, dog_id)
+		subordinate_schema = SubordinateSchema(strict=True)
 
 		db.session.add(slv)
 		db.session.commit()
 
-		return slave_schema.jsonify(slv)
+		return subordinate_schema.jsonify(slv)
 
 @app.route('/api/dogo', methods=['GET'])
 def read_dogos():
@@ -41,13 +41,13 @@ def read_dogos():
 
 		return dog_schema.jsonify(result)
 
-@app.route('/api/slave', methods=['GET'])
-def read_slaves():
+@app.route('/api/subordinate', methods=['GET'])
+def read_subordinates():
 	if request.method == 'GET':
-		result = Slave.query.all()
-		slave_schema = SlaveSchema(many=True)
+		result = Subordinate.query.all()
+		subordinate_schema = SubordinateSchema(many=True)
 
-		return slave_schema.jsonify(result)
+		return subordinate_schema.jsonify(result)
 
 @app.route('/api/dogo/<id>', methods=['POST'])
 def read_dogo(id):
@@ -57,13 +57,13 @@ def read_dogo(id):
 
 		return dog_schema.jsonify(result)
 
-@app.route('/api/slave/<id>', methods=['POST'])
-def read_slave(id):
+@app.route('/api/subordinate/<id>', methods=['POST'])
+def read_subordinate(id):
 	if request.method == 'POST':
-		result = Slave.query.get(id)
-		slave_schema = SlaveSchema(strict=True)
+		result = Subordinate.query.get(id)
+		subordinate_schema = SubordinateSchema(strict=True)
 
-		return slave_schema.jsonify(result)
+		return subordinate_schema.jsonify(result)
 
 @app.route('/api/dogo/<id>', methods=['PUT'])
 def update_dogo(id):
@@ -80,19 +80,19 @@ def update_dogo(id):
 
 		return dog_schema.jsonify(dogo)
 
-@app.route('/api/slave/<id>', methods=['PUT'])
-def update_slave(id):
+@app.route('/api/subordinate/<id>', methods=['PUT'])
+def update_subordinate(id):
 	if request.method == 'PUT':
-		slv = Slave.query.get(id)
+		slv = Subordinate.query.get(id)
 
 		slv.sex = request.json['sex']
 		slv.dog_id = request.json['dog_id']
 		
-		slave_schema = SlaveSchema(strict=True)
+		subordinate_schema = SubordinateSchema(strict=True)
 
 		db.session.commit()
 
-		return slave_schema.jsonify(slv)
+		return subordinate_schema.jsonify(slv)
 
 @app.route('/api/dogo/<id>', methods=['DELETE'])
 def delete_dogo(id):
@@ -104,12 +104,12 @@ def delete_dogo(id):
 
 		return f'dogo {id} deleted successfully'
 
-@app.route('/api/slave/<id>', methods=['DELETE'])
-def delete_slave(id):
+@app.route('/api/subordinate/<id>', methods=['DELETE'])
+def delete_subordinate(id):
 	if request.method == 'DELETE':
-		slv = Slave.query.get(id)
+		slv = Subordinate.query.get(id)
 
 		db.session.delete(slv)
 		db.session.commit()
 
-		return  f'slave {id} deleted successfully'
+		return  f'subordinate {id} deleted successfully'
